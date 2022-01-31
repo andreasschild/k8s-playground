@@ -54,7 +54,7 @@ stages:
          $con = Get-Content "deploy-webapp1.yml"
          $newCon = $con.Replace("{{tag}}","${{ parameters.Tag }}")
          $newCon | Out-File "deploy-webapp1.yml" -Force
-        workingDirectory: '$(System.DefaultWorkingDirectory)/.aks'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/K8sPlayground/.aks'
         displayName: 'Replace Deployment tag'
       - task: Kubernetes@1
         displayName: 'kubectl: Apply Deployment'
@@ -64,4 +64,4 @@ stages:
           command: apply
           arguments: |
            -f deploy-webapp1.yml
-        workingDirectory: '$(System.DefaultWorkingDirectory)/.aks'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/K8sPlayground/.aks'
