@@ -1,21 +1,23 @@
 # This yaml file does not follow any best practices. Just quick and dirty
 parameters:
 - name: Tag
-  DisplayName: Image tag
+  displayName: Image tag
   type: string
   default: '$(Build.BuildId)'
 - name: Infrastructure
-  DisplayName: Deploy Infrastructure?
+  displayName: Deploy Infrastructure?
   type: boolean
   default: false
 - name: BuildPush
-  DisplayName: Build and Push to Registry?
-  type: boolean
-  default: false
-- name: Deploy
-  DisplayName: Deploy Application?
+  displayName: Build and Push to Registry?
   type: boolean
   default: true
+- name: Deploy
+  displayName: Deploy Application?
+  type: boolean
+  default: true
+
+#trigger: none
 
 stages:
 - stage: cicd
