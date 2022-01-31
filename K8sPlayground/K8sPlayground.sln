@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".azure-pipelines", ".azure-pipelines", "{02BC7687-E406-454F-9097-17843D667C01}"
+	ProjectSection(SolutionItems) = preProject
+		..\.azure-pipelines\MyWebApp1.yml = ..\.azure-pipelines\MyWebApp1.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWebApp1", "MyWebApp1\MyWebApp1.csproj", "{5818E3BB-0F86-45F7-8AAB-87FD1FCB813A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".aks", ".aks", "{4DE2BFD1-2459-492F-927C-47E9C36745E0}"
+	ProjectSection(SolutionItems) = preProject
+		..\.aks\deploy-webapp1.yml = ..\.aks\deploy-webapp1.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5818E3BB-0F86-45F7-8AAB-87FD1FCB813A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5818E3BB-0F86-45F7-8AAB-87FD1FCB813A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5818E3BB-0F86-45F7-8AAB-87FD1FCB813A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5818E3BB-0F86-45F7-8AAB-87FD1FCB813A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D75EDF0E-70F8-471B-B527-BA302F23CAE6}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,65 @@
+# This yaml file does not follow any best practices. Just quick and dirty
+parameters:
+- name: Tag
+  DisplayName: Image tag
+  type: string
+  default: '$(Build.BuildId)'
+- name: Infrastructure
+  DisplayName: Deploy Infrastructure?
+  type: boolean
+  default: false
+- name: BuildPush
+  DisplayName: Build and Push to Registry?
+  type: boolean
+  default: false
+- name: Deploy
+  DisplayName: Deploy Application?
+  type: boolean
+  default: true
+
+stages:
+- stage: cicd
+  jobs:
+  - job: cicd
+    pool:
+      name: 'Azure Pipelines'
+    steps:
+    - ${{ if eq(parameters.Infrastructure, true) }}: 
+      - task: AzureCLI@2
+        displayName: 'Infrastructure Deployment'
+        enabled: false
+        inputs:
+          azureSubscription: 'anschild-sc'
+          scriptType: pscore
+          scriptLocation: inlineScript
+          inlineScript: |
+            az group create --name k8splayground-rg --location westeurope
+            az aks create --resource-group k8splayground-rg --name k8splayground-ks --node-count 1 --enable-addons monitoring --generate-ssh-keys
+    - ${{ if eq(parameters.BuildPush, true) }}: 
+      - task: Docker@2
+        displayName: 'Docker: Build and Push'
+        inputs:
+          containerRegistry: 'boologne-sc'
+          repository: boologne/k8splayground
+          buildContext: '$(System.DefaultWorkingDirectory)/K8sPlayground'
+          tags: '${{ parameters.Tag }}'
+      - task: PublishPipelineArtifact@1
+        inputs:
+          artifactName: 'manifests'
+          path: 'manifests'
+    - ${{ if eq(parameters.Deploy, true) }}:
+      - pwsh: |
+         $con = Get-Content "deploy-webapp1.yml"
+         $newCon = $con.Replace("{{tag}}","${{ parameters.Tag }}")
+         $newCon | Out-File "deploy-webapp1.yml" -Force
+        workingDirectory: '$(System.DefaultWorkingDirectory)/.aks'
+        displayName: 'Replace Deployment tag'
+      - task: Kubernetes@1
+        displayName: 'kubectl: Apply Deployment'
+        inputs:
+          kubernetesServiceEndpoint: k8splayground
+          namespace: default
+          command: apply
+          arguments: |
+           -f deploy-webapp1.yml
+        workingDirectory: '$(System.DefaultWorkingDirectory)/.aks'
