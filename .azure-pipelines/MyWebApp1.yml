@@ -45,10 +45,6 @@ stages:
           repository: boologne/k8splayground
           buildContext: '$(System.DefaultWorkingDirectory)/K8sPlayground'
           tags: '${{ parameters.Tag }}'
-      - task: PublishPipelineArtifact@1
-        inputs:
-          artifactName: 'manifests'
-          path: 'manifests'
     - ${{ if eq(parameters.Deploy, true) }}:
       - pwsh: |
          $con = Get-Content "deploy-webapp1.yml"
