@@ -61,3 +61,22 @@ stages:
           arguments: |
            -f deploy-webapp1.yml
           workingDirectory: '$(System.DefaultWorkingDirectory)/.aks'
+      - task: Kubernetes@1
+        displayName: 'kubectl: Apply Service Nodeport'
+        inputs:
+          kubernetesServiceEndpoint: k8splayground
+          namespace: default
+          command: apply
+          arguments: |
+           -f svc-nodeport.yml
+          workingDirectory: '$(System.DefaultWorkingDirectory)/.aks'
+      - task: Kubernetes@1
+        displayName: 'kubectl: Apply Service Loadbalancer'
+        enabled: false
+        inputs:
+          kubernetesServiceEndpoint: k8splayground
+          namespace: default
+          command: apply
+          arguments: |
+           -f svc-loadbalancer.yml
+          workingDirectory: '$(System.DefaultWorkingDirectory)/.aks'

@@ -13,6 +13,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".aks", ".aks", "{4DE2BFD1-2459-492F-927C-47E9C36745E0}"
 	ProjectSection(SolutionItems) = preProject
 		..\.aks\deploy-webapp1.yml = ..\.aks\deploy-webapp1.yml
+		svc-loadbalancer.yml = svc-loadbalancer.yml
+		svc-nodeport.yml = svc-nodeport.yml
 	EndProjectSection
 EndProject
 Global
